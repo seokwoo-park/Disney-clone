@@ -1,9 +1,15 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import { Login } from "./components";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello world</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
