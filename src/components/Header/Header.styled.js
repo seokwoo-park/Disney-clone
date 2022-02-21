@@ -97,10 +97,15 @@ export const Login = styled.a`
   text-transform: uppercase;
   letter-spacing: 1.5px;
   transition: all 0.2s ease-out;
+  cursor: pointer;
 
   &:hover {
     background-color: #f9f9f9;
     color: #000;
     border-color: transparent;
   }
+`;
+
+export const UserImg = styled.img`
+  height: 100%;
 `;
