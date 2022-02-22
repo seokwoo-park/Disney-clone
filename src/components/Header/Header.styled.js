@@ -109,3 +109,41 @@ export const Login = styled.a`
 export const UserImg = styled.img`
   height: 100%;
 `;
+
+export const DropDown = styled.div`
+  position: absolute;
+  top: 3em;
+  right: 0;
+  background-color: rgb(19, 19, 19);
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  border-radius: 5px;
+  box-shadow: rgb(0 0 0 / 50%) 0 0 18px 0;
+  padding: 0.6em;
+  font-size: 14px;
+  letter-spacing: 3px;
+  width: 100px;
+  opacity: 0;
+`;
+
+export const SignOut = styled.div`
+  position: relative;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+
+  ${UserImg} {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 1s;
+    }
+  }
+`;

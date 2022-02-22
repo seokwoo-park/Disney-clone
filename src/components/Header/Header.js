@@ -1,5 +1,5 @@
-import React from "react";
-import { signInWithPopup } from "firebase/auth";
+import React, { useEffect } from "react";
+import { signInWithPopup, onAuthStateChanged, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "../../firebase/firebase";
@@ -10,12 +10,15 @@ import {
   Nav,
   NavMenu,
   UserImg,
+  SignOut,
+  DropDown,
 } from "./Header.styled";
 import {
   selectUserName,
   selectUserPhoto,
   selectUserEmail,
   setUserLoginDetails,
+  setSignOutState,
 } from "../../features/user/userSlice";
 
 const Header = () => {
@@ -26,11 +29,20 @@ const Header = () => {
   const userEmail = useSelector(selectUserEmail);
 
   const handleAuth = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        setUser(result.user);
-      })
-      .catch((error) => alert(error));
+    if (!userName) {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          setUser(result.user);
+        })
+        .catch((error) => alert(error));
+    } else if (userName) {
+      signOut(auth)
+        .then(() => {
+          dispatch(setSignOutState());
+          navigate("");
+        })
+        .catch((err) => alert(err));
+    }
   };
 
   const setUser = (user) => {
@@ -42,6 +54,15 @@ const Header = () => {
       })
     );
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        navigate("home");
+      }
+    });
+  }, [userName]);
 
   return (
     <Nav>
@@ -78,7 +99,12 @@ const Header = () => {
               <span>SERIES</span>
             </ItemWrapper>
           </NavMenu>
-          <UserImg src={userPhoto} />
+          <SignOut>
+            <UserImg src={userPhoto} />
+            <DropDown>
+              <span onClick={handleAuth}>Sign Out</span>
+            </DropDown>
+          </SignOut>
         </>
       )}
     </Nav>
