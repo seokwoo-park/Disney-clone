@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Nav = styled.nav`
@@ -15,10 +16,11 @@ export const Nav = styled.nav`
   z-index: 3;
 `;
 
-export const Logo = styled.a`
+export const Logo = styled(Link)`
   width: 80px;
   max-height: 70px;
   display: inline-block;
+  cursor: pointer;
   img {
     display: block;
     width: 100%;

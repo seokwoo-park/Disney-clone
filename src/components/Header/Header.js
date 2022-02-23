@@ -16,7 +16,6 @@ import {
 import {
   selectUserName,
   selectUserPhoto,
-  selectUserEmail,
   setUserLoginDetails,
   setSignOutState,
 } from "../../features/user/userSlice";
@@ -26,7 +25,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const userName = useSelector(selectUserName);
   const userPhoto = useSelector(selectUserPhoto);
-  const userEmail = useSelector(selectUserEmail);
 
   const handleAuth = () => {
     if (!userName) {
@@ -66,7 +64,7 @@ const Header = () => {
 
   return (
     <Nav>
-      <Logo>
+      <Logo to="home">
         <img src={"/images/logo.svg"} alt="Disney+ logo" />
       </Logo>
       {!userName ? (
